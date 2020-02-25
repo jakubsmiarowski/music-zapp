@@ -3,41 +3,52 @@ import './Search.css'
 
 class Search extends React.Component{
 
-    getInitialState(){
-        return{
-            searchingText:''
-        };
-    }
-
-    handleChange(event){
-        let searchingText = event.target.value;
-        this.setState({ searchingText: searchingText});
-
-        if (searchingText.length > 2){
-            this.props.onSearch(searchingText);
+    constructor() {
+        super();
+        this.state = {
+          searchText:'',
         }
-    }
+      }
 
-    handleKeyUp(event){
+    onChangeHandle(event) {
+        this.setState({searchText: event.target.value});
+      }
+
+    onSubmit(event) {
+        event.preventDefault();
+        const {searchText} = this.state;
+        const url = `http://www.songsterr.com/a/wa/song?id=${searchText}`;
+        fetch(url)
+        .then(res => res.text())
+        .then((data) => {
+          this.setState({ song: data })
+        })
+        .catch(error => console.log(error))
+    }
+    
+      handleKeyUp(event){
         if (event.keyCode === 13) {
-            this.props.onSearch(this.state.searchingText);
+            this.props.onSubmit(this.state.searchText);
         }
     }
 
     render(){
+        var styles = {
+            margin: '0 auto',
+            textAlign: 'center',
+            width: '50%'
+        };
         return(
-            <div className="input-group mb-3">
-                <input
+            <input
                 type="text"
-                class="form-control"
-                onChange={this.handleChange}
+                style={styles}
+                className="form-control"
+                onSubmit={event => this.onSubmit(event)}
+                onChange={event => this.onChangeHandle(event)}
                 onKeyUp={this.handleKeyUp}
                 placeholder="What song are you looking for?"
-                />
-                <div className="input-group-append">
-                    <button class="btn btn-outline-dark" type="button" id="button-addon2">Search</button>
-                </div>
-            </div>
+                value={this.state.searchText}
+            />
         )
     }
 
