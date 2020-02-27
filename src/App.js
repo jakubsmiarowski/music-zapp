@@ -13,11 +13,16 @@ class App extends React.Component {
   }
 
   onSearch(){
-
+    fetch('https://www.songsterr.com/')
+    .then(result => result.text)
+    .then((data) => {
+        this.setState({ song: data })
+    })
+    .catch(error => console.log(error))
   }
 
   getSong(){
-    
+
   }
 
   render(){
