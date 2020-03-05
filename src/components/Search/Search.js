@@ -9,33 +9,35 @@ class Search extends React.Component{
           searchText:'',
         }
       }
-
-    onChangeHandle(event) {
-        this.setState({searchText: event.target.value});
-        fetch('https://www.songsterr.com/')
-        .then(result => result.text)
-        .then((data) => {
-            this.setState({ song: data })
-        })
-        .catch(error => console.log(error))
+    
+      handleChange(event){
+        let searchingText = event.target.value;
+        this.setState({searchingText: searchingText});
+    
+        if (searchingText.length > 2) {
+          this.props.onSearch(searchingText);
+        }
       }
     
-    /*  handleKeyUp(event){
+    handleKeyUp(event){
         if (event.keyCode === 13) {
             this.props.onChange(this.state.searchText);
         }
-    }*/
+    }
 
     render(){
         return(
-            <input
-                type="text"
-                className="form-control"
-                onChange={event => this.onChangeHandle(event)}
-                onKeyUp={this.handleKeyUp}
-                placeholder="What song are you looking for?"
-                value={this.state.searchText}
-            />
+            <div>
+                <input
+                    type="text"
+                    className="form-control"
+                    onChange={this.handleChange}
+                    onKeyUp={this.handleKeyUp}
+                    placeholder="What song are you looking for?"
+                    value={this.state.searchText}
+                />
+                <button type="button" class="btn btn-light" onClick>Submit</button>
+            </div>
         )
     }
 
