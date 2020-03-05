@@ -12,22 +12,19 @@ class Search extends React.Component{
 
     onChangeHandle(event) {
         this.setState({searchText: event.target.value});
-      }
-    
-      handleKeyUp(event){
-        if (event.keyCode === 13) {
-            this.props.onChange(this.state.searchText);
-        }
-    }
-
-    componentWillMount(){
         fetch('https://www.songsterr.com/')
         .then(result => result.text)
         .then((data) => {
             this.setState({ song: data })
         })
         .catch(error => console.log(error))
-    }
+      }
+    
+    /*  handleKeyUp(event){
+        if (event.keyCode === 13) {
+            this.props.onChange(this.state.searchText);
+        }
+    }*/
 
     render(){
         return(

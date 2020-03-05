@@ -12,7 +12,7 @@ class App extends React.Component {
     }
   }
 
-  onSearch(){
+  componentWillMount(){
     fetch('https://www.songsterr.com/')
     .then(result => result.text)
     .then((data) => {
