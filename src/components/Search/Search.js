@@ -1,28 +1,47 @@
 import React from "react";
+import { tabMap } from "../Tabs/Tabs";
 import "./Search.css";
 
 class Search extends React.Component {
   constructor() {
     super();
     this.state = {
-      searchText: ""
+      searchText: "",
+      isChecked: {
+        CHORDS: true,
+        PLAYER: true,
+        TEXT_BASS_TAB: true,
+        TEXT_GUITAR_TAB: true
+      }
     };
   }
 
-  handleChange = (event) => {
-    const searchText = event.target.value;
-    this.setState({ searchText: searchText });
+  handleChange = e => {
+    const searchText = e.target.value;
+    this.setState({ searchText: searchText }, () => {this.doSearch();});
+    
+  };
 
-    if (searchText.length > 2) {
-      this.props.onSearch(searchText);
-    }
-  }
+  doSearch = () => {
+    const searchTabs = Object.keys(this.state.isChecked).filter(
+      keyTab => this.state.isChecked[keyTab]
+    );
 
-  /*handleKeyUp = (event) => {
-    if (event.keyCode === 13) {
-      this.props.onChange(this.state.searchText);
+    if (this.state.searchText.length > 2) {
+      this.props.onSearch(this.state.searchText, searchTabs);
     }
-  }*/
+  };
+
+  toggleChange = event => {
+    this.setState({
+      isChecked: {
+        ...this.state.isChecked,
+        [event.target.name]: !this.state.isChecked[event.target.name]
+      }
+    }, () => {
+      this.doSearch();
+    });
+  };
 
   render() {
     return (
@@ -35,7 +54,18 @@ class Search extends React.Component {
           placeholder="What song are you looking for?"
           value={this.state.searchText}
         />
-        <button type="button" class="btn btn-light" onClick={this.handleChange}>
+        {Object.keys(tabMap).map(tabKey => (
+          <div key={tabKey}>
+            <label htmlFor={tabKey}>{tabMap[tabKey]}</label>
+            <input
+              type="checkbox"
+              name={tabKey}
+              checked={this.state.isChecked[tabKey]}
+              onChange={this.toggleChange}
+            />
+          </div>
+        ))}
+        <button type="button" className="btn btn-light" onClick={this.handleChange}>
           Submit
         </button>
       </div>

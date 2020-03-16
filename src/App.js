@@ -21,14 +21,17 @@ class App extends React.Component {
     return response.data;
   };
 
-  handleSearch = async searchingText => {
+  handleSearch = async (searchingText, searchingTabs) => {
     this.setState({
       loading: true
     });
     const songs = await this.getSong(searchingText);
+    const tabsFilteredSongs = songs.filter(song=> (
+      searchingTabs.every(t=>song.tabTypes.includes(t))
+    ))
     this.setState({
       searchingText: searchingText,
-      songs: songs
+      songs: tabsFilteredSongs,
     });
   };
 
@@ -37,7 +40,6 @@ class App extends React.Component {
       <div className="input-group mb-3">
         <Search onSearch={this.handleSearch} />
         <Songs songs={this.state.songs} />
-        {/* {JSON.stringify(this.state.songs)} */}
       </div>
     );
   }

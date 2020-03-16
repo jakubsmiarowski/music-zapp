@@ -1,11 +1,19 @@
 import React from "react";
 
+export const tabMap = {
+  PLAYER: "Player",
+  TEXT_GUITAR_TAB: "Guitar",
+  CHORDS: "Chords",
+  TEXT_BASS_TAB: "Bass"
+}
+
+
 class Tabs extends React.Component {
   render() {
-    let tabs = this.props.tab.map(tab => {
+    let tabs = this.props.tabTypes.map(tab => {
       return (
-        <ul class="list-group list-group-horizontal">
-          <li class="list-group-item">{tab.tabTypes}</li>
+        <ul key={tab} className="list-group list-group-horizontal">
+          <li className="list-group-item">{tabMap[tab]}</li>
         </ul>
       );
     });
