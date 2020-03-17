@@ -16,13 +16,7 @@ class Search extends React.Component {
     };
   }
 
-  handleChange = e => {
-    const searchText = e.target.value;
-    this.setState({ searchText: searchText }, () => {this.doSearch();});
-    
-  };
-
-  doSearch = () => {
+  handleSearch = () => {
     const searchTabs = Object.keys(this.state.isChecked).filter(
       keyTab => this.state.isChecked[keyTab]
     );
@@ -32,14 +26,20 @@ class Search extends React.Component {
     }
   };
 
-  toggleChange = event => {
+  handleChange = e => {
+    const searchText = e.target.value;
+    this.setState({ searchText: searchText }, () => {this.handleSearch();});
+  };
+
+
+  toggleCheckboxChange = e => {
     this.setState({
       isChecked: {
         ...this.state.isChecked,
-        [event.target.name]: !this.state.isChecked[event.target.name]
+        [e.target.name]: !this.state.isChecked[e.target.name]
       }
     }, () => {
-      this.doSearch();
+      this.handleSearch();
     });
   };
 
@@ -48,26 +48,23 @@ class Search extends React.Component {
       <div>
         <input
           type="text"
-          className="form-control"
+          className="form-control search"
           onChange={this.handleChange}
-          onKeyUp={this.handleKeyUp}
-          placeholder="What song are you looking for?"
+          placeholder="What are you looking for?"
           value={this.state.searchText}
         />
         {Object.keys(tabMap).map(tabKey => (
-          <div key={tabKey}>
+          <span key={tabKey}>
             <label htmlFor={tabKey}>{tabMap[tabKey]}</label>
             <input
               type="checkbox"
               name={tabKey}
               checked={this.state.isChecked[tabKey]}
-              onChange={this.toggleChange}
+              onChange={this.toggleCheckboxChange}
+              className="checkbox"
             />
-          </div>
+          </span>
         ))}
-        <button type="button" className="btn btn-light" onClick={this.handleChange}>
-          Submit
-        </button>
       </div>
     );
   }

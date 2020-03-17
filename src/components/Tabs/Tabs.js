@@ -1,4 +1,5 @@
 import React from "react";
+import './Tabs.css';
 
 export const tabMap = {
   PLAYER: "Player",
@@ -6,7 +7,6 @@ export const tabMap = {
   CHORDS: "Chords",
   TEXT_BASS_TAB: "Bass"
 }
-
 
 class Tabs extends React.Component {
   render() {

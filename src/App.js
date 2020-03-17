@@ -22,9 +22,6 @@ class App extends React.Component {
   };
 
   handleSearch = async (searchingText, searchingTabs) => {
-    this.setState({
-      loading: true
-    });
     const songs = await this.getSong(searchingText);
     const tabsFilteredSongs = songs.filter(song=> (
       searchingTabs.every(t=>song.tabTypes.includes(t))
@@ -37,7 +34,9 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="input-group mb-3">
+      <div className="input-group mb-3 wrapper">
+        <h1>Welcome to Music-Zapp!</h1>
+        <h3>Search for your favorite song or artist and choose your tabs</h3>
         <Search onSearch={this.handleSearch} />
         <Songs songs={this.state.songs} />
       </div>

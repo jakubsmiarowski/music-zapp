@@ -1,0 +1,40 @@
+.single-song {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-column-gap: 10px;
+    grid-row-gap: 15px;
+    margin-top: 40px;
+}
+
+.card {
+    border: 1px solid #4e5766;
+    box-shadow: 1px 0.5px #888888;
+}
+
+.card-body {
+    margin: 10px;
+}
+
+.card-title,
+.card-subtitle {
+    margin-bottom: 1rem;
+    cursor: default;
+}
+
+@media only screen and (min-width: 959px) and (max-width: 1400px) {
+    .single-song {
+        grid-template-columns: auto auto auto;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+    .single-song {
+        grid-template-columns: auto auto;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .single-song {
+        grid-template-columns: auto;
+    }
+}
