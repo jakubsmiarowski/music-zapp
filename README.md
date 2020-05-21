@@ -1,6 +1,6 @@
 This application connects to API from www.songsterr.com
 
-Deployed site on Netlify -> [https://stoic-euclid-f4918c.netlify.com/](https://stoic-euclid-f4918c.netlify.com/)
+Deployed site on Netlify -> [https://jolly-leakey-52d67d.netlify.app/](https://jolly-leakey-52d67d.netlify.app/)
 
 1. User has ability to input name of the song or the artist.
 2. User can also choose the tab which interest him:
